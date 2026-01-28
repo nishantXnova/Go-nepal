@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { componentTaggerPlugin } from "./src/visual-edits/component-tagger-plugin.js";
+import { componentTaggerPlugin } from "./src/GoNepal/component-tagger-plugin.js";
 
 // Minimal plugin to log build-time and dev-time errors to console
 const logErrorsPlugin = () => ({

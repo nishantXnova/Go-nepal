@@ -7,7 +7,7 @@ import Index from "./pages/Index";
 import DestinationDetail from "./pages/DestinationDetail";
 import Airlines from "./pages/Airlines";
 import NotFound from "./pages/NotFound";
-import HoverReceiver from "@/visual-edits/VisualEditsMessenger";
+import HoverReceiver from "@/GoNepal/VisualEditsMessenger";
 import { ChatBot } from "@/components/ChatBot";
 
 const queryClient = new QueryClient();

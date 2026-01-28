@@ -4,6 +4,10 @@ import { Button } from "@/components/ui/button";
 import { sendMessage, Message } from "@/lib/openrouter";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card } from "@/components/ui/card";
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 const interests = ["Adventure", "Culture", "Nature", "Spirituality", "Family"];
 const durations = ["3 days", "5 days", "7 days", "10+ days"];
@@ -48,9 +52,9 @@ Branding:
 - Maintain the identity of a trustworthy, local Nepal travel expert.
 
 Important Rules:
-dont answer with these, write clean LaTex, Make sure you don't show these : ---
-
-### **`;
+- Write clear, well-formatted content with proper markdown headers (use #, ##, ###).
+- Use proper LaTeX formatting for mathematical expressions.
+- Always format your response cleanly with proper spacing and structure.`;
 
 const PlanTrip = () => {
   const [selectedInterest, setSelectedInterest] = useState<string | null>(null);
@@ -292,8 +296,30 @@ const PlanTrip = () => {
                 </div>
 
                 <ScrollArea className="h-[500px] pr-4">
-                  <div className="prose prose-slate max-w-none whitespace-pre-wrap text-foreground leading-relaxed">
-                    {itinerary}
+                  <div className="prose prose-slate max-w-none text-foreground leading-relaxed markdown-content">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkMath]}
+                      rehypePlugins={[rehypeKatex]}
+                      components={{
+                        h1: ({node, ...props}) => <h1 className="text-3xl font-bold mt-6 mb-4 text-primary" {...props} />,
+                        h2: ({node, ...props}) => <h2 className="text-2xl font-bold mt-5 mb-3 text-primary" {...props} />,
+                        h3: ({node, ...props}) => <h3 className="text-xl font-semibold mt-4 mb-2 text-primary" {...props} />,
+                        p: ({node, ...props}) => <p className="mb-3 leading-relaxed" {...props} />,
+                        ul: ({node, ...props}) => <ul className="list-disc list-inside mb-3 space-y-1" {...props} />,
+                        ol: ({node, ...props}) => <ol className="list-decimal list-inside mb-3 space-y-1" {...props} />,
+                        li: ({node, ...props}) => <li className="mb-1" {...props} />,
+                        strong: ({node, ...props}) => <strong className="font-bold text-primary" {...props} />,
+                        em: ({node, ...props}) => <em className="italic text-accent" {...props} />,
+                        code: ({node, inline, ...props}) => 
+                          inline ? (
+                            <code className="bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded text-sm font-mono" {...props} />
+                          ) : (
+                            <code className="block bg-gray-100 dark:bg-gray-800 p-3 rounded-lg overflow-x-auto text-sm font-mono mb-3" {...props} />
+                          ),
+                      }}
+                    >
+                      {itinerary}
+                    </ReactMarkdown>
                   </div>
                 </ScrollArea>
               </div>
